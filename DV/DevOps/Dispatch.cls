@@ -12,6 +12,10 @@ XData UrlMap [ XMLNamespace = "http://www.intersystems.com/urlmap" ]
 
 ClassMethod BeginDeployment()
 {
+	set request = {}.%FromJSON(%request.Content)
+	if '$IsObject(request) w {"error":"payload missing"}.%ToJSON() return $$$OK
+	set response = ##class(DV.DevOps.Deployment).DeployBegin(request)
+	write:$IsObject(response) response.%ToJSON()
 	return $$$OK
 }
 

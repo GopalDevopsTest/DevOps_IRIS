@@ -1,11 +1,11 @@
 Class DV.DevOps.Utility Extends %RegisteredObject
 {
-    
+
 ClassMethod GetAllDeploymentDetails()
 {
 	&SQL(SELECT JSON_ARRAYAGG(
 					JSON_OBJECT(
-						'id':DeploymentId,
+						'id':BuildId,
 						'description':Description,
 						'initiateUser':InitiateUser,
 						'startDateTime':$ZDT(StartDateTime,3),
@@ -13,14 +13,14 @@ ClassMethod GetAllDeploymentDetails()
 						'status':status
 					)
 				) INTO :deploymentDetails
-		FROM DV_DevOps_DB.DeploymentDetails
+		FROM DV_DevOps_DB.Deployment
 		)
 	return deploymentDetails
 }
 
 ClassMethod GetAllDeploymentById(id As %String) As %String
 {
-	set obj = ##class(DV.DevOps.DB.DeploymentDetails).%OpenId(id)
+	set obj = ##class(DV.DevOps.DB.Deployment).%OpenId(id)
 	do obj.%JSONExportToString(.string)
 	return string
 }

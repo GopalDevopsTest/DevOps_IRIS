@@ -1,7 +1,8 @@
 Include DV.DevOps
+
 Class DV.DevOps.Base Extends %RegisteredObject
 {
-    
+
 ClassMethod lastProdCommitId() As %String [ CodeMode = expression ]
 {
 $$$LCDEVOP($$$ENV,"LCI")
@@ -39,8 +40,9 @@ ClassMethod untar(sFolder = "", sFile = "", ByRef sOutFolder As %String) As %Sta
     Return sc
 }
 
-ClassMethod DeployBegin()
+ClassMethod DeployBegin() As %Status
 {
+    return $$$OK
 }
 
 }

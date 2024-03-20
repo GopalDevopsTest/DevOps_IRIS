@@ -5,7 +5,13 @@ Property InvokeType As %String(DISPLAYLIST = ",CSP,REST,TRM", VALUELIST = ",CSP,
 
 Method Deployment()
 {
-	Do ..DeployBegin()
+	Try {
+		Do ..DeployBegin()
+	}
+	Catch ex {
+		Set tSC=ex.AsStatus()
+	}
+	
 	Return $$$OK
 }
 
